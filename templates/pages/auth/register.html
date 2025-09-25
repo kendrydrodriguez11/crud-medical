@@ -1,0 +1,30 @@
+{% extends "pages/auth/base.html" %}
+
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-header">
+        <h1>Registro de Usuario</h1>
+        <p>Complete los campos para crear su cuenta</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {% include "pages/auth/_form_field.html" with field=form.dni %}
+        {% include "pages/auth/_form_field.html" with field=form.first_name %}
+        {% include "pages/auth/_form_field.html" with field=form.last_name %}
+        {% include "pages/auth/_form_field.html" with field=form.email %}
+        {% include "pages/auth/_form_field.html" with field=form.password1 %}
+        {% include "pages/auth/_form_field.html" with field=form.password2 %}
+
+        <button type="submit" class="btn-login">Registrarse</button>
+
+        <div class="separator"><span>o</span></div>
+
+        <div class="login-links">
+            <a href="{% url 'auth_login' %}">Ya tengo una cuenta</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load static %}
+<nav class="navbar">
+    <div class="logo">
+        <span class="logo-text">Centro Médico</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#"><i class="fas fa-home"></i> <span>Inicio</span></a></li>
+        {% if user.is_authenticated %}
+            <li><a href="#"><i class="fas fa-user"></i> <span>Perfil</span></a></li>
+            <li><a href="{% url 'user_logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a></li>
+        
+            {% else %}
+            <li><a href="#"><i class="fas fa-info-circle"></i> <span>Sobre Nosotros</span></a></li>
+            <li><a href="#"><i class="fas fa-concierge-bell"></i> <span>Servicios</span></a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> <span>Contacto</span></a></li>
+        {% endif %}
+        
+    </ul>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>

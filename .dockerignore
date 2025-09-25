@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE configs
+*.idea/
+*.vscode/
+
+# Logs
+*.log
+logs/
+
+# Local environment files
+.env.local
+
+# Media & static
+media/
+static/
+
+# OS & git
+.git/
+*.swp
+.DS_Store
+
+# Optional Docker files (ajustar según build)
+# Dockerfile*
+# docker-compose*
+
+# Specific directories
+/ci/
+/backup/
+/diagrams/
+/deploy/
+/test/
+
+# Optional Makefile
+Makefile
+
+# Allow only necessary files
+!config/
+!core/
+!docker/
+!requirements/
+!static/
+!templates/
+!manage.py
+!.env
+!.env.sample
+!*.json

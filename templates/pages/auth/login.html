@@ -1,0 +1,26 @@
+{% extends "pages/auth/base.html" %}
+
+{% block title %}Acceso al Sistema{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-header">
+        <h1>Acceso al Sistema</h1>
+        <p>Ingrese sus credenciales para continuar</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {% include "pages/auth/_form_field.html" with field=form.username %}
+        {% include "pages/auth/_form_field.html" with field=form.password %}
+        <button type="submit" class="btn-login">Iniciar Sesión</button>
+
+
+        <div class="separator"><span>o</span></div>
+
+        <div class="login-links">
+            <a href="{% url 'auth_register' %}">Registrar cuenta</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

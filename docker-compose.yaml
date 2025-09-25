@@ -1,0 +1,72 @@
+#version: "3.9"
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENV_MODE: ${ENV_MODE}
+    container_name: ${PROJECT_NAME}-monolith
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    environment:
+      ENV_MODE: ${ENV_MODE}
+    volumes:
+      - static_volume:/app/staticfiles/
+      - ./media:/app/media/
+    networks:
+      - backend
+
+  db:
+    image: postgres:15
+    container_name: ${PROJECT_NAME}-postgres
+    env_file: ./.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: ${PROJECT_NAME}-pgadmin
+    env_file: ./.env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - backend
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    container_name: ${PROJECT_NAME}-nginx
+    restart: always
+    depends_on:
+      - django
+    volumes:
+      - static_volume:/app/staticfiles
+      - ./media:/app/media
+    ports:
+      - "8081:80"
+    networks:
+      - backend
+
+volumes:
+  static_volume:
+  postgres_data:
+
+networks:
+  backend:
+    name: backoffice-network-local
+    driver: bridge

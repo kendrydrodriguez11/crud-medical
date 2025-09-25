@@ -1,0 +1,50 @@
+{% extends "pages/auth/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+<!-- Font Awesome desde CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- CSS exclusivo para Home -->
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="menu-container">
+    <div class="menu-grid">
+        <div class="menu-item">
+            <i class="fas fa-user-md"></i>
+            <h2>Doctores</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-users"></i>
+            <h2>Pacientes</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-calendar-check"></i>
+            <h2>Citas</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-prescription"></i>
+            <h2>Recetas</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-pills"></i>
+            <h2>Medicamentos</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-file-medical"></i>
+            <h2>Expedientes</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-heartbeat"></i>
+            <h2>Diagnósticos</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-flask"></i>
+            <h2>Laboratorio</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}
