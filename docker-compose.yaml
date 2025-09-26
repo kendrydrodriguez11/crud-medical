@@ -1,4 +1,4 @@
-#version: "3.9"
+version: "3.9"
 
 services:
   django:
@@ -16,8 +16,8 @@ services:
     environment:
       ENV_MODE: ${ENV_MODE}
     volumes:
-      - static_volume:/app/staticfiles/
-      - ./media:/app/media/
+      - static_volume:/staticfiles
+      - ./media:/media
     networks:
       - backend
 
@@ -55,8 +55,8 @@ services:
     depends_on:
       - django
     volumes:
-      - static_volume:/app/staticfiles
-      - ./media:/app/media
+      - static_volume:/staticfiles
+      - ./media:/media
     ports:
       - "8081:80"
     networks:
