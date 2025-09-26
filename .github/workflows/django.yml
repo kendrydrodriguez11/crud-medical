@@ -9,17 +9,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:   # Secrets disponibles en todo el job
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: ${{ secrets.DEBUG }}
+      PSQL: ${{ secrets.PSQL }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+      PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
 
     services:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         ports: ["5432:5432"]
         options: >-
-          --health-cmd="pg_isready -U ${{ secrets.POSTGRES_USER }}"
+          --health-cmd="pg_isready -U ${{ env.POSTGRES_USER }}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -48,13 +58,13 @@ jobs:
     - name: Run migrations
       env:
         PSQL: 1
-        DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+        DATABASE_URL: postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}
       run: |
         python manage.py migrate
 
     - name: Run tests
       env:
         PSQL: 1
-        DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/${{ secrets.POSTGRES_DB }}
+        DATABASE_URL: postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}
       run: |
         python manage.py test
