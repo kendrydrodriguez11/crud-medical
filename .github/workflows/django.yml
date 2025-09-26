@@ -63,4 +63,4 @@ jobs:
           PSQL: 1
           DATABASE_URL: postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
         run: |
-          python manage.py test
+          python manage.py tes
