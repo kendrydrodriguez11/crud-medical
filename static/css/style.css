@@ -6,7 +6,7 @@
 }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            background: blanchedalmond;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -369,3 +369,5 @@
                 width: 90%;
             }
         }
+
+
